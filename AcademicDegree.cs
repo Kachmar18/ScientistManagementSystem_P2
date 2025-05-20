@@ -10,8 +10,8 @@ namespace ScientistManagementSystem_C_
     {
         None,
         PhD,
-        CandidateTech,
-        CandidateMathPhys,
-        DoctorTech
+        PhDM,
+        CandidateTechnical,
+        DoctorTechnical
     }
 }

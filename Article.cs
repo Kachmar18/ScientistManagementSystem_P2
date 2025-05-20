@@ -8,24 +8,24 @@ namespace ScientistManagementSystem_C_
 {
     public class Article
     {
-        public string[] Authors { get; set; }
-        public string PublicationTitle { get; set; }
-        public string JournalTitle { get; set; }
+        public string Authors { get; set; }
+        public string JournalName { get; set; }
+        public string Title { get; set; }
         public int Year { get; set; }
 
-        public Article(string[] authors, string publicationTitle, string journalTitle, int year)
+        public Article(string authors, string journalName, string title, int year)
         {
             Authors = authors;
-            PublicationTitle = publicationTitle;
-            JournalTitle = journalTitle;
+            JournalName = journalName;
+            Title = title;
             Year = year;
         }
 
         public Article(Article other)
         {
-            Authors = (string[])other.Authors.Clone();
-            PublicationTitle = other.PublicationTitle;
-            JournalTitle = other.JournalTitle;
+            Authors = other.Authors;
+            JournalName = other.JournalName;
+            Title = other.Title;
             Year = other.Year;
         }
     }

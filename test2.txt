@@ -1,0 +1,14 @@
+Ivanov
+Petro
+Mykolaiovych
+Author1;Journal A;Article A;2021
+Author2;Journal B;Article B;2022
+---
+2
+1
+PhD
+Math,Physics
+600
+GroupA,GroupB
+10
+===

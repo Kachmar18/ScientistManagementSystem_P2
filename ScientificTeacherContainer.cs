@@ -3,113 +3,66 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
-using System.IO;
-using System.Text.Json.Serialization;
 
 namespace ScientistManagementSystem_C_
 {
     public class ScientificTeacherContainer : IEnumerable<ScientificTeacher>
     {
-        private List<ScientificTeacher> teachers;
-
-        public ScientificTeacherContainer()
-        {
-            teachers = new List<ScientificTeacher>();
-        }
+        private List<ScientificTeacher> _teachers = new List<ScientificTeacher>();
 
         public void Add(ScientificTeacher teacher)
         {
-            teachers.Add(teacher);
+            _teachers.Add(teacher);
         }
 
-        public void Remove(ScientificTeacher teacher)
+        public void AddRange(IEnumerable<ScientificTeacher> list)
         {
-            teachers.Remove(teacher);
+            _teachers.AddRange(list);
         }
 
-        public int Count => teachers.Count;
+        public ScientificTeacher this[int index] => _teachers[index];
 
-        public ScientificTeacher this[int index]
-        {
-            get => teachers[index];
-            set => teachers[index] = value;
-        }
+        public int Count => _teachers.Count;
 
-        public void DisplayAll()
+        public void DisplayAll(Action<string> displayMethod)
         {
-            foreach (var t in teachers)
+            foreach (var teacher in _teachers)
             {
-                t.DisplayInfo();
-                Console.WriteLine("-----------------------------");
+                displayMethod(teacher.Display());
             }
         }
 
-        // ✅ Статистика — середнє навантаження
-        public double GetAverageWorkload()
+        // ---------- СТАТИСТИКА ----------
+        public double GetAverageLoad()
         {
-            return teachers.Average(t => t.TeacherInfo.WorkloadHoursPerYear);
+            if (_teachers.Count == 0) return 0;
+            return _teachers.Average(t => t.TeacherData.AnnualHours);
         }
 
-        // ✅ Статистика — середній стаж
         public double GetAverageExperience()
         {
-            return teachers.Average(t => t.TeacherInfo.ExperienceYears);
+            if (_teachers.Count == 0) return 0;
+            return _teachers.Average(t => t.TeacherData.ExperienceYears);
         }
 
-        // ✅ Список працівників, що викладають певну дисципліну
-        public List<ScientificTeacher> GetTeachersByDiscipline(string discipline)
+        public List<ScientificTeacher> GetTeachersBySubject(string subject)
         {
-            return teachers
-                .Where(t => t.TeacherInfo.Disciplines.Contains(discipline, StringComparer.OrdinalIgnoreCase))
+            return _teachers
+                .Where(t => t.TeacherData.Subjects.Contains(subject, StringComparer.OrdinalIgnoreCase))
                 .ToList();
         }
 
-        // ✅ Ітератор (реалізація інтерфейсу IEnumerable)
+        // ---------- ІТЕРАТОР ----------
         public IEnumerator<ScientificTeacher> GetEnumerator()
         {
-            foreach (var teacher in teachers)
-            {
-                yield return teacher;
-            }
+            foreach (var t in _teachers)
+                yield return t;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
-
-
-
-        public void SaveToFile(string filePath)
-        {
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                IncludeFields = true
-            };
-
-            string json = JsonSerializer.Serialize(teachers, options);
-            File.WriteAllText(filePath, json);
-        }
-
-        public void LoadFromFile(string filePath)
-        {
-            if (!File.Exists(filePath)) return;
-
-            var options = new JsonSerializerOptions
-            {
-                IncludeFields = true
-            };
-
-            string json = File.ReadAllText(filePath);
-            teachers = JsonSerializer.Deserialize<List<ScientificTeacher>>(json, options)
-                       ?? new List<ScientificTeacher>();
-        }
-
-
     }
 }
-
-

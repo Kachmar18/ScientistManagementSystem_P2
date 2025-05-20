@@ -1,105 +1,89 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ScientistManagementSystem_C_
 {
-    public class Teacher : ICloneable
+    public class Teacher
     {
-        public List<string> Disciplines { get; set; }
-        public int WorkloadHoursPerYear { get; set; }
+        public List<string> Subjects { get; set; }
+        public int AnnualHours { get; set; }
         public List<string> Groups { get; set; }
         public int ExperienceYears { get; set; }
 
-        // Default constructor
-        public Teacher()
+        // Constructor
+        public Teacher(List<string> subjects, int annualHours, List<string> groups, int experienceYears)
         {
-            Disciplines = new List<string>();
-            Groups = new List<string>();
-            WorkloadHoursPerYear = 0;
-            ExperienceYears = 0;
-        }
-
-        // Initialization constructor
-        public Teacher(List<string> disciplines, int workload, List<string> groups, int experience)
-        {
-            Disciplines = new List<string>(disciplines);
-            WorkloadHoursPerYear = workload;
-            Groups = new List<string>(groups);
-            ExperienceYears = experience;
+            Subjects = subjects;
+            AnnualHours = annualHours;
+            Groups = groups;
+            ExperienceYears = experienceYears;
         }
 
         // Copy constructor
         public Teacher(Teacher other)
         {
-            Disciplines = new List<string>(other.Disciplines);
-            WorkloadHoursPerYear = other.WorkloadHoursPerYear;
+            Subjects = new List<string>(other.Subjects);
+            AnnualHours = other.AnnualHours;
             Groups = new List<string>(other.Groups);
             ExperienceYears = other.ExperienceYears;
         }
 
-        // Clone method
-        public object Clone()
-        {
-            return new Teacher(this);
-        }
-
-        // Destructor
+        // Destructor (not commonly needed, added for the requirement)
         ~Teacher()
         {
-            // No unmanaged resources used here
+            // Optional clean-up if needed
         }
 
-        // () operator overload — assign values interactively
-        public void SetValues(List<string> disciplines, int workload, List<string> groups, int experience)
+        // Access methods
+
+        public void SetSubjects(List<string> subjects) => Subjects = subjects;
+        public List<string> GetSubjects() => Subjects;
+
+        public void SetAnnualHours(int hours) => AnnualHours = hours;
+        public int GetAnnualHours() => AnnualHours;
+
+        public void SetGroups(List<string> groups) => Groups = groups;
+        public List<string> GetGroups() => Groups;
+
+        public void SetExperienceYears(int years) => ExperienceYears = years;
+        public int GetExperienceYears() => ExperienceYears;
+
+
+
+
+        public void SetAll(List<string> subjects, int hours, List<string> groups, int experience)
         {
-            Disciplines = new List<string>(disciplines);
-            WorkloadHoursPerYear = workload;
-            Groups = new List<string>(groups);
+            Subjects = subjects;
+            AnnualHours = hours;
+            Groups = groups;
             ExperienceYears = experience;
         }
 
-        // Assignment (already handled naturally by C#, unless you need deep copy)
         public void CopyFrom(Teacher other)
         {
-            if (other == null) return;
-
-            Disciplines = new List<string>(other.Disciplines);
+            Subjects = new List<string>(other.Subjects);
+            AnnualHours = other.AnnualHours;
             Groups = new List<string>(other.Groups);
-            WorkloadHoursPerYear = other.WorkloadHoursPerYear;
             ExperienceYears = other.ExperienceYears;
         }
 
-        // Stream input (text input emulation)
-        public static Teacher ReadFrom(TextReader reader)
+        public static Teacher Move(ref Teacher other)
         {
-            var disciplines = reader.ReadLine().Split(',').Select(s => s.Trim()).ToList();
-            int workload = int.Parse(reader.ReadLine());
-            var groups = reader.ReadLine().Split(',').Select(s => s.Trim()).ToList();
-            int experience = int.Parse(reader.ReadLine());
-
-            return new Teacher(disciplines, workload, groups, experience);
+            Teacher moved = new Teacher(other.Subjects, other.AnnualHours, other.Groups, other.ExperienceYears);
+            other.Subjects = null;
+            other.AnnualHours = 0;
+            other.Groups = null;
+            other.ExperienceYears = 0;
+            return moved;
         }
 
-        // Stream output
-        public static void WriteTo(TextWriter writer, Teacher t)
-        {
-            writer.WriteLine("Disciplines: " + string.Join(", ", t.Disciplines));
-            writer.WriteLine("Workload (hours/year): " + t.WorkloadHoursPerYear);
-            writer.WriteLine("Groups: " + string.Join(", ", t.Groups));
-            writer.WriteLine("Experience (years): " + t.ExperienceYears);
-        }
-
-        // ToString override
         public override string ToString()
         {
-            return $"Disciplines: {string.Join(", ", Disciplines)}\n" +
-                   $"Workload: {WorkloadHoursPerYear} hours/year\n" +
-                   $"Groups: {string.Join(", ", Groups)}\n" +
-                   $"Experience: {ExperienceYears} years";
+            return $"Subjects: {string.Join(", ", Subjects)}, Hours: {AnnualHours}, Groups: {string.Join(", ", Groups)}, Experience: {ExperienceYears}";
         }
+
     }
 }

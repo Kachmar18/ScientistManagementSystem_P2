@@ -6,75 +6,100 @@ using System.Threading.Tasks;
 
 namespace ScientistManagementSystem_C_
 {
-    public class Scientist : ICloneable, IComparable<Scientist>
+    public class Scientist
     {
         public Article[] Publications { get; set; }
-        public int ConferenceCount { get; set; }
-        public int PatentCount { get; set; }
+        public int ConferenceReports { get; set; }
+        public int Patents { get; set; }
         public AcademicDegree Degree { get; set; }
 
-        public Scientist(Article[] publications, int conferenceCount, int patentCount, AcademicDegree degree)
+        // Constructor
+        public Scientist(Article[] publications, int conferenceReports, int patents, AcademicDegree degree)
         {
             Publications = publications;
-            ConferenceCount = conferenceCount;
-            PatentCount = patentCount;
+            ConferenceReports = conferenceReports;
+            Patents = patents;
             Degree = degree;
         }
-
-
-        public Scientist()
-        {
-            Publications = new Article[0];
-            ConferenceCount = 0;
-            PatentCount = 0;
-            Degree = AcademicDegree.None;
-        }
-
 
         // Copy constructor
         public Scientist(Scientist other)
         {
-            Publications = other.Publications.Select(p => new Article(p)).ToArray();
-            ConferenceCount = other.ConferenceCount;
-            PatentCount = other.PatentCount;
+            Publications = other.Publications.Select(a => new Article(a)).ToArray();
+            ConferenceReports = other.ConferenceReports;
+            Patents = other.Patents;
             Degree = other.Degree;
-        }
-
-        // ICloneable implementation
-        public object Clone()
-        {
-            return new Scientist(this);
-        }
-
-        // IComparable implementation (наприклад, по кількості публікацій)
-        public int CompareTo(Scientist other)
-        {
-            return this.Publications.Length.CompareTo(other.Publications.Length);
         }
 
         // Destructor
         ~Scientist()
         {
-            // В реальному житті — для unmanaged ресурсів
+            // Clean-up if needed (not commonly used in .NET)
+        }
+
+        // Access methods
+        public void SetDegree(AcademicDegree degree) => Degree = degree;
+        public AcademicDegree GetDegree() => Degree;
+
+        public void SetPublications(Article[] articles) => Publications = articles;
+        public Article[] GetPublications() => Publications;
+
+        public void SetConferenceReports(int count) => ConferenceReports = count;
+        public int GetConferenceReports() => ConferenceReports;
+
+        public void SetPatents(int count) => Patents = count;
+        public int GetPatents() => Patents;
+
+
+
+
+        public void SetAll(Article[] publications, int reports, int patents, AcademicDegree degree)
+        {
+            Publications = publications;
+            ConferenceReports = reports;
+            Patents = patents;
+            Degree = degree;
+        }
+
+        // Імітація присвоєння
+        public void CopyFrom(Scientist other)
+        {
+            Publications = other.Publications.Select(a => new Article(a)).ToArray();
+            ConferenceReports = other.ConferenceReports;
+            Patents = other.Patents;
+            Degree = other.Degree;
+        }
+
+        // Імітація "переміщення"
+        public static Scientist Move(ref Scientist other)
+        {
+            Scientist moved = new Scientist(other.Publications, other.ConferenceReports, other.Patents, other.Degree);
+            other.Publications = null;
+            other.ConferenceReports = 0;
+            other.Patents = 0;
+            other.Degree = AcademicDegree.None;
+            return moved;
+        }
+
+        // Вивід
+        public override string ToString()
+        {
+            return $"Degree: {Degree}, Reports: {ConferenceReports}, Patents: {Patents}, Publications: {Publications.Length}";
+        }
+
+        // Зчитування з рядка
+        public static Scientist Parse(string data)
+        {
+            // TODO: реалізація при потребі
+            throw new NotImplementedException();
         }
 
 
-        public virtual void DisplayInfo()
-        {
-            Console.WriteLine("=== Scientist Info ===");
-            Console.WriteLine($"Degree: {Degree}");
-            Console.WriteLine($"Publications: {Publications.Length}");
-            Console.WriteLine($"Conferences: {ConferenceCount}");
-            Console.WriteLine($"Patents: {PatentCount}");
 
-            // ІМІТАЦІЯ: "виклик похідного з базового" — simulate virtual dispatch
-            CallAdditionalInfo();
-        }
 
-        // Метод, який може бути перевизначений похідним класом
-        protected virtual void CallAdditionalInfo()
+        public virtual string Display()
         {
-            Console.WriteLine("(Base) No additional info.");
+            return $"[Scientist] Degree: {Degree}, Reports: {ConferenceReports}, Patents: {Patents}, Publications: {Publications.Length}";
         }
 
     }
