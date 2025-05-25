@@ -55,12 +55,19 @@
     </Compile>
     <Compile Include="AcademicDegree.cs" />
     <Compile Include="Article.cs" />
-    <Compile Include="infoStaffForm.cs">
+    <Compile Include="editStaffForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="infoStaffForm.Designer.cs">
-      <DependentUpon>infoStaffForm.cs</DependentUpon>
+    <Compile Include="editStaffForm.Designer.cs">
+      <DependentUpon>editStaffForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="addStaffForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addStaffForm.Designer.cs">
+      <DependentUpon>addStaffForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormHelper.cs" />
     <Compile Include="mainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,8 +83,11 @@
     <EmbeddedResource Include="aboutForm.resx">
       <DependentUpon>aboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="infoStaffForm.resx">
-      <DependentUpon>infoStaffForm.cs</DependentUpon>
+    <EmbeddedResource Include="addStaffForm.resx">
+      <DependentUpon>addStaffForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="editStaffForm.resx">
+      <DependentUpon>editStaffForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
@@ -109,6 +119,10 @@
     <None Include="Icons\next_icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Icons\open.png" />
+    <None Include="Icons\save.png" />
+    <None Include="Icons\exit.png" />
+    <None Include="Icons\bar-graph.png" />
     <Content Include="scientists.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

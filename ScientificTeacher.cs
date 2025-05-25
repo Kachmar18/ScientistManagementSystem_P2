@@ -51,7 +51,6 @@ namespace ScientistManagementSystem_C_
         // Input parser (example: from one formatted line)
         public static ScientificTeacher Parse(string[] lines)
         {
-            // Реалізація залежить від формату вхідних даних — можу допомогти при потребі
             throw new NotImplementedException();
         }
 
@@ -62,9 +61,6 @@ namespace ScientistManagementSystem_C_
             FirstName = first;
             MiddleName = middle;
         }
-
-
-
 
         public override string Display()
         {

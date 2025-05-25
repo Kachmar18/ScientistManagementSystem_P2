@@ -118,16 +118,16 @@ Math,Philology
 Ling-11,Ling-12
 11
 ===
-Tymoshenko
-Vitalii
-Olehovych
-Tymoshenko V.;CyberSec Today;Network Vulnerabilities;2022
+asd
+asd
+asd
+Ivanov;Physics Letters;Quantum Space;2021
 ---
-2
-2
+1
+1
 PhD
-Math,Information Systems
-610
-Cyber-41
-10
+1
+1
+1
+1
 ===
