@@ -347,6 +347,7 @@
             this.Controls.Add(this.txtLastName);
             this.Controls.Add(this.btnSave);
             this.Name = "editStaffForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Інформація про працівника";
             this.Load += new System.EventHandler(this.editStaffForm_Load);
             this.ResumeLayout(false);

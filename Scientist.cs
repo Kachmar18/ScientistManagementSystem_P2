@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace ScientistManagementSystem_C_
 {
+    [Serializable]
     public class Scientist
     {
         public Article[] Publications { get; set; }
         public int ConferenceReports { get; set; }
         public int Patents { get; set; }
         public AcademicDegree Degree { get; set; }
+
+        public Scientist() { }
 
         // Constructor
         public Scientist(Article[] publications, int conferenceReports, int patents, AcademicDegree degree)

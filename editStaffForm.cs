@@ -47,34 +47,86 @@ namespace ScientistManagementSystem_C_
                 string firstName = txtFirstName.Text.Trim();
                 string middleName = txtMiddleName.Text.Trim();
 
+                // Перевірка ПІБ
+                if (!ValidationHelper.ValidateNonEmpty(lastName, "Прізвище") || lastName.Length < 2)
+                {
+                    MessageBox.Show("Прізвище повинно містити щонайменше 2 символи.");
+                    return;
+                }
+                if (!ValidationHelper.ValidateNonEmpty(firstName, "Ім'я") || firstName.Length < 2)
+                {
+                    MessageBox.Show("Ім'я повинно містити щонайменше 2 символи.");
+                    return;
+                }
+                if (!ValidationHelper.ValidateNonEmpty(middleName, "По батькові") || middleName.Length < 2)
+                {
+                    MessageBox.Show("По батькові повинно містити щонайменше 2 символи.");
+                    return;
+                }
+
+                // Публікації
                 List<Article> articles = new List<Article>();
                 foreach (string line in txtPublications.Lines)
                 {
                     string[] parts = line.Split(';');
                     if (parts.Length == 4 && int.TryParse(parts[3], out int year))
                     {
-                        articles.Add(new Article(parts[0], parts[1], parts[2], year));
+                        if (year < 1900 || year > DateTime.Now.Year)
+                        {
+                            MessageBox.Show("Рік публікації має бути між 1900 та поточним роком.");
+                            return;
+                        }
+                        articles.Add(new Article(parts[0].Trim(), parts[1].Trim(), parts[2].Trim(), year));
+                    }
+                    else
+                    {
+                        MessageBox.Show("Невірний формат публікації. Використовуйте: автор;журнал;назва;рік");
+                        return;
                     }
                 }
 
-                if (!int.TryParse(txtReports.Text, out int reports) ||
-                    !int.TryParse(txtPatents.Text, out int patents) ||
-                    !int.TryParse(txtHours.Text, out int hours) ||
-                    !int.TryParse(txtExperience.Text, out int experience))
+                // Числові поля
+                if (!ValidationHelper.ValidatePositiveInt(txtReports.Text, out int reports, "Кількість виступів") ||
+                    !ValidationHelper.ValidatePositiveInt(txtPatents.Text, out int patents, "Кількість патентів") ||
+                    !ValidationHelper.ValidatePositiveInt(txtHours.Text, out int hours, "Навантаження (годин)") ||
+                    !ValidationHelper.ValidatePositiveInt(txtExperience.Text, out int experience, "Стаж роботи"))
                 {
-                    MessageBox.Show("Перевірте числові поля.");
                     return;
                 }
 
-                if (!Enum.TryParse(cmbDegree.SelectedItem.ToString(), out AcademicDegree degree))
+                // Вчений ступінь
+                if (cmbDegree.SelectedItem == null ||
+                    !Enum.TryParse(cmbDegree.SelectedItem.ToString(), out AcademicDegree degree))
                 {
-                    MessageBox.Show("Оберіть вчений ступінь.");
+                    MessageBox.Show("Будь ласка, оберіть вчений ступінь.");
                     return;
                 }
 
-                List<string> subjects = txtSubjects.Text.Split(',').Select(s => s.Trim()).ToList();
-                List<string> groups = txtGroups.Text.Split(',').Select(s => s.Trim()).ToList();
+                // Предмети
+                List<string> subjects = txtSubjects.Text.Split(',')
+                    .Select(s => s.Trim())
+                    .Where(s => !string.IsNullOrEmpty(s))
+                    .ToList();
 
+                if (subjects.Count == 0)
+                {
+                    MessageBox.Show("Будь ласка, введіть хоча б один предмет (через кому).");
+                    return;
+                }
+
+                // Групи
+                List<string> groups = txtGroups.Text.Split(',')
+                    .Select(s => s.Trim())
+                    .Where(s => !string.IsNullOrEmpty(s))
+                    .ToList();
+
+                if (groups.Count == 0)
+                {
+                    MessageBox.Show("Будь ласка, введіть хоча б одну групу (через кому).");
+                    return;
+                }
+
+                // Створюємо об'єкт
                 EditedTeacher = new ScientificTeacher(
                     lastName, firstName, middleName,
                     articles.ToArray(), reports, patents, degree,
@@ -90,19 +142,15 @@ namespace ScientistManagementSystem_C_
             }
         }
 
+        private void editStaffForm_Load(object sender, EventArgs e)
+        {
+            FormHelper.contentCmbDegree(cmbDegree);
+        }
+
+
         private void btnGoBack_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void editStaffForm_Load(object sender, EventArgs e)
-        {
-            cmbDegree.Items.Clear();
-            cmbDegree.Items.Add("PhD");
-            cmbDegree.Items.Add("PhDM");
-            cmbDegree.Items.Add("CandidateTechnical");
-            cmbDegree.Items.Add("DoctorTechnical");
-            cmbDegree.SelectedIndex = 0;
         }
     }
 }

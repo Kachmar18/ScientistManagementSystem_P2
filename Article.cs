@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ScientistManagementSystem_C_
 {
+    [Serializable]
     public class Article
     {
         public string Authors { get; set; }
@@ -28,5 +29,7 @@ namespace ScientistManagementSystem_C_
             Title = other.Title;
             Year = other.Year;
         }
+
+        public Article() { }
     }
 }

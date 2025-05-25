@@ -47,34 +47,35 @@ namespace ScientistManagementSystem_C_
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                ofd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-
+                ofd.Filter = "XML files (*.xml)|*.xml";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    scientificTeachers = FormHelper.LoadFromFile(ofd.FileName);
+                    scientificTeachers = FormHelper.LoadFromXml(ofd.FileName);
                     container = new ScientificTeacherContainer();
                     container.AddRange(scientificTeachers);
                     LoadScientificTeachersIntoGrid();
-                    MessageBox.Show("Дані успішно завантажено.", "Завантаження");
+                    MessageBox.Show("Дані успішно завантажено з XML.", "Завантаження");
                 }
             }
+
+
         }
 
         private void зберегтиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
-                sfd.Filter = "Text files (*.txt)|*.txt";
+                sfd.Filter = "XML files (*.xml)|*.xml";
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    FormHelper.SaveToFile(sfd.FileName, scientificTeachers);
-                    MessageBox.Show("Дані успішно збережено.", "Збереження");
-
+                    FormHelper.SaveToXml(sfd.FileName, scientificTeachers);
+                    MessageBox.Show("Дані успішно збережено у XML.", "Збереження");
                 }
             }
-        }
 
-                     
+        } 
+
+
 
         private void btnShowStatistics_Click(object sender, EventArgs e)
         {

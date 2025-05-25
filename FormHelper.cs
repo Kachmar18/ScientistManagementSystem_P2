@@ -6,11 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace ScientistManagementSystem_C_
 {
     public static class FormHelper
     {
+        public static void contentCmbDegree(ComboBox cmbDegree)
+        {
+            cmbDegree.Items.Clear();
+            cmbDegree.Items.Add("PhD");
+            cmbDegree.Items.Add("PhDM");
+            cmbDegree.Items.Add("CandidateTechnical");
+            cmbDegree.Items.Add("DoctorTechnical");
+            cmbDegree.SelectedIndex = 0;
+        }
+
         public static List<ScientificTeacher> LoadFromFile(string path)
         {
             List<ScientificTeacher> list = new List<ScientificTeacher>();
@@ -105,6 +116,25 @@ namespace ScientistManagementSystem_C_
 
                     writer.WriteLine("===");
                 }
+            }
+        }
+
+
+        public static void SaveToXml(string path, List<ScientificTeacher> teachers)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<ScientificTeacher>));
+            using (FileStream fs = new FileStream(path, FileMode.Create))
+            {
+                serializer.Serialize(fs, teachers);
+            }
+        }
+
+        public static List<ScientificTeacher> LoadFromXml(string path)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<ScientificTeacher>));
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                return (List<ScientificTeacher>)serializer.Deserialize(fs);
             }
         }
 

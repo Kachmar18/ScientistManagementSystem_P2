@@ -32,7 +32,29 @@ namespace ScientistManagementSystem_C_
                 string firstName = txtFirstName.Text.Trim();
                 string middleName = txtMiddleName.Text.Trim();
 
-                // Публікації
+                // Валідація ПІБ
+                if (!ValidationHelper.ValidateNonEmpty(lastName, "Прізвище") ||
+                    lastName.Length < 2)
+                {
+                    MessageBox.Show("Прізвище повинно містити щонайменше 2 символи.");
+                    return;
+                }
+
+                if (!ValidationHelper.ValidateNonEmpty(firstName, "Ім'я") ||
+                    firstName.Length < 2)
+                {
+                    MessageBox.Show("Ім'я повинно містити щонайменше 2 символи.");
+                    return;
+                }
+
+                if (!ValidationHelper.ValidateNonEmpty(middleName, "По батькові") ||
+                    middleName.Length < 2)
+                {
+                    MessageBox.Show("По батькові повинно містити щонайменше 2 символи.");
+                    return;
+                }
+
+                // Валідація публікацій
                 List<Article> articles = new List<Article>();
                 foreach (string line in txtPublications.Lines)
                 {
@@ -48,15 +70,16 @@ namespace ScientistManagementSystem_C_
                     }
                 }
 
-                if (!int.TryParse(txtReports.Text.Trim(), out int reports) ||
-                    !int.TryParse(txtPatents.Text.Trim(), out int patents) ||
-                    !int.TryParse(txtHours.Text.Trim(), out int hours) ||
-                    !int.TryParse(txtExperience.Text.Trim(), out int experience))
+                // Валідація числових полів
+                if (!ValidationHelper.ValidatePositiveInt(txtReports.Text, out int reports, "Кількість виступів") ||
+                    !ValidationHelper.ValidatePositiveInt(txtPatents.Text, out int patents, "Кількість патентів") ||
+                    !ValidationHelper.ValidatePositiveInt(txtHours.Text, out int hours, "Навантаження (годин)") ||
+                    !ValidationHelper.ValidatePositiveInt(txtExperience.Text, out int experience, "Стаж роботи"))
                 {
-                    MessageBox.Show("Перевірте числові поля: виступи, патенти, години, досвід.");
-                    return;
+                    return; // якщо хоч одна перевірка не пройшла, вихід
                 }
 
+                // Валідація ступеня
                 if (cmbDegree.SelectedItem == null ||
                     !Enum.TryParse(cmbDegree.SelectedItem.ToString(), out AcademicDegree degree))
                 {
@@ -64,9 +87,31 @@ namespace ScientistManagementSystem_C_
                     return;
                 }
 
-                List<string> subjects = txtSubjects.Text.Split(',').Select(s => s.Trim()).Where(s => s != "").ToList();
-                List<string> groups = txtGroups.Text.Split(',').Select(s => s.Trim()).Where(s => s != "").ToList();
+                // Валідація предметів
+                List<string> subjects = txtSubjects.Text.Split(',')
+                    .Select(s => s.Trim())
+                    .Where(s => !string.IsNullOrEmpty(s))
+                    .ToList();
 
+                if (subjects.Count == 0)
+                {
+                    MessageBox.Show("Будь ласка, введіть хоча б один предмет.");
+                    return;
+                }
+
+                // Валідація груп
+                List<string> groups = txtGroups.Text.Split(',')
+                    .Select(s => s.Trim())
+                    .Where(s => !string.IsNullOrEmpty(s))
+                    .ToList();
+
+                if (groups.Count == 0)
+                {
+                    MessageBox.Show("Будь ласка, введіть хоча б одну групу.");
+                    return;
+                }
+
+                // Створюємо об'єкт
                 NewTeacher = new ScientificTeacher(
                     lastName, firstName, middleName,
                     articles.ToArray(), reports, patents, degree,
@@ -78,7 +123,7 @@ namespace ScientistManagementSystem_C_
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unexpected error: " + ex.Message);
+                MessageBox.Show("Неочікувана помилка: " + ex.Message);
             }
         }
 
@@ -86,13 +131,7 @@ namespace ScientistManagementSystem_C_
 
         private void infoStaffForm_Load(object sender, EventArgs e)
         {
-            cmbDegree.Items.Clear();
-            cmbDegree.Items.Add("PhD");
-            cmbDegree.Items.Add("PhDM");
-            cmbDegree.Items.Add("CandidateTechnical");
-            cmbDegree.Items.Add("DoctorTechnical");
-            cmbDegree.SelectedIndex = 0;
-
+            FormHelper.contentCmbDegree(cmbDegree);
         }
     }
 }

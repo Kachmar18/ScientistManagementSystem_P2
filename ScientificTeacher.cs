@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ScientistManagementSystem_C_
 {
+    [Serializable]
     public class ScientificTeacher : Scientist
     {
         public Teacher TeacherData { get; set; }
@@ -13,6 +14,16 @@ namespace ScientistManagementSystem_C_
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
+
+        public ScientificTeacher()
+        {
+            // Ініціалізуємо порожні поля, щоб уникнути null-помилок
+            TeacherData = new Teacher();
+            LastName = string.Empty;
+            FirstName = string.Empty;
+            MiddleName = string.Empty;
+        }
+
 
         // Constructor
         public ScientificTeacher(string lastName, string firstName, string middleName,
@@ -36,25 +47,17 @@ namespace ScientistManagementSystem_C_
             MiddleName = other.MiddleName;
         }
 
-        // Destructor
-        ~ScientificTeacher()
-        {
-            // Optional clean-up
-        }
-
-        // Output
         public override string ToString()
         {
             return $"{LastName} {FirstName} {MiddleName}\n{base.ToString()}\n{TeacherData.ToString()}";
         }
 
-        // Input parser (example: from one formatted line)
+
         public static ScientificTeacher Parse(string[] lines)
         {
             throw new NotImplementedException();
         }
 
-        // Additional setter
         public void SetPersonalData(string last, string first, string middle)
         {
             LastName = last;
@@ -69,5 +72,7 @@ namespace ScientistManagementSystem_C_
                    $"Subjects: {string.Join(", ", TeacherData.Subjects)}, Hours: {TeacherData.AnnualHours}, " +
                    $"Groups: {string.Join(", ", TeacherData.Groups)}, Experience: {TeacherData.ExperienceYears}";
         }
+
+
     }
 }

@@ -80,6 +80,7 @@
     <Compile Include="ScientificTeacherContainer.cs" />
     <Compile Include="Scientist.cs" />
     <Compile Include="Teacher.cs" />
+    <Compile Include="ValidationHelper.cs" />
     <EmbeddedResource Include="aboutForm.resx">
       <DependentUpon>aboutForm.cs</DependentUpon>
     </EmbeddedResource>
