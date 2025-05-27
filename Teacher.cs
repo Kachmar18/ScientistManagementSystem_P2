@@ -16,7 +16,6 @@ namespace ScientistManagementSystem_C_
 
         public Teacher() { }
 
-        // Constructor
         public Teacher(List<string> subjects, int annualHours, List<string> groups, int experienceYears)
         {
             Subjects = subjects;
@@ -34,13 +33,7 @@ namespace ScientistManagementSystem_C_
             ExperienceYears = other.ExperienceYears;
         }
 
-        // Destructor (not commonly needed, added for the requirement)
-        ~Teacher()
-        {
-            // Optional clean-up if needed
-        }
-
-        // Access methods
+        ~Teacher(){ }
 
         public void SetSubjects(List<string> subjects) => Subjects = subjects;
         public List<string> GetSubjects() => Subjects;
@@ -55,8 +48,7 @@ namespace ScientistManagementSystem_C_
         public int GetExperienceYears() => ExperienceYears;
 
 
-
-
+        // метод для зміни значень полів
         public void SetAll(List<string> subjects, int hours, List<string> groups, int experience)
         {
             Subjects = subjects;
@@ -65,6 +57,7 @@ namespace ScientistManagementSystem_C_
             ExperienceYears = experience;
         }
 
+        //перевантаження операції присвоєння
         public void CopyFrom(Teacher other)
         {
             Subjects = new List<string>(other.Subjects);
@@ -73,6 +66,7 @@ namespace ScientistManagementSystem_C_
             ExperienceYears = other.ExperienceYears;
         }
 
+        //імітація переміщення вручну
         public static Teacher Move(ref Teacher other)
         {
             Teacher moved = new Teacher(other.Subjects, other.AnnualHours, other.Groups, other.ExperienceYears);

@@ -49,6 +49,7 @@
             this.btnDeleteStaff = new System.Windows.Forms.Button();
             this.btnShowStatistics = new System.Windows.Forms.Button();
             this.btnCleanDataGried = new System.Windows.Forms.Button();
+            this.btnTestOperations = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -200,7 +201,7 @@
             this.btnTestPolymorphism.Location = new System.Drawing.Point(15, 143);
             this.btnTestPolymorphism.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTestPolymorphism.Name = "btnTestPolymorphism";
-            this.btnTestPolymorphism.Size = new System.Drawing.Size(657, 53);
+            this.btnTestPolymorphism.Size = new System.Drawing.Size(396, 53);
             this.btnTestPolymorphism.TabIndex = 6;
             this.btnTestPolymorphism.Text = "Продемонструвати поліморфізм";
             this.btnTestPolymorphism.UseVisualStyleBackColor = true;
@@ -257,11 +258,23 @@
             this.btnCleanDataGried.UseVisualStyleBackColor = true;
             this.btnCleanDataGried.Click += new System.EventHandler(this.btnCleanDataGried_Click);
             // 
+            // btnTestOperations
+            // 
+            this.btnTestOperations.Font = new System.Drawing.Font("Arsenal", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnTestOperations.Location = new System.Drawing.Point(429, 143);
+            this.btnTestOperations.Name = "btnTestOperations";
+            this.btnTestOperations.Size = new System.Drawing.Size(243, 53);
+            this.btnTestOperations.TabIndex = 11;
+            this.btnTestOperations.Text = "Демонстрація методів";
+            this.btnTestOperations.UseVisualStyleBackColor = true;
+            this.btnTestOperations.Click += new System.EventHandler(this.btnTestOperations_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1455, 753);
+            this.Controls.Add(this.btnTestOperations);
             this.Controls.Add(this.btnCleanDataGried);
             this.Controls.Add(this.btnDeleteStaff);
             this.Controls.Add(this.btnEditStaff);
@@ -309,6 +322,7 @@
         private System.Windows.Forms.Button btnEditStaff;
         private System.Windows.Forms.Button btnDeleteStaff;
         private System.Windows.Forms.Button btnCleanDataGried;
+        private System.Windows.Forms.Button btnTestOperations;
     }
 }
 

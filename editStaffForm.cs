@@ -19,6 +19,11 @@ namespace ScientistManagementSystem_C_
             InitializeComponent();
         }
 
+        private void editStaffForm_Load(object sender, EventArgs e)
+        {
+            FormHelper.contentCmbDegree(cmbDegree);
+        }
+
         public void LoadTeacherForEdit(ScientificTeacher teacher)
         {
             txtLastName.Text = teacher.LastName;
@@ -47,7 +52,6 @@ namespace ScientistManagementSystem_C_
                 string firstName = txtFirstName.Text.Trim();
                 string middleName = txtMiddleName.Text.Trim();
 
-                // Перевірка ПІБ
                 if (!ValidationHelper.ValidateNonEmpty(lastName, "Прізвище") || lastName.Length < 2)
                 {
                     MessageBox.Show("Прізвище повинно містити щонайменше 2 символи.");
@@ -64,7 +68,6 @@ namespace ScientistManagementSystem_C_
                     return;
                 }
 
-                // Публікації
                 List<Article> articles = new List<Article>();
                 foreach (string line in txtPublications.Lines)
                 {
@@ -85,7 +88,6 @@ namespace ScientistManagementSystem_C_
                     }
                 }
 
-                // Числові поля
                 if (!ValidationHelper.ValidatePositiveInt(txtReports.Text, out int reports, "Кількість виступів") ||
                     !ValidationHelper.ValidatePositiveInt(txtPatents.Text, out int patents, "Кількість патентів") ||
                     !ValidationHelper.ValidatePositiveInt(txtHours.Text, out int hours, "Навантаження (годин)") ||
@@ -94,7 +96,6 @@ namespace ScientistManagementSystem_C_
                     return;
                 }
 
-                // Вчений ступінь
                 if (cmbDegree.SelectedItem == null ||
                     !Enum.TryParse(cmbDegree.SelectedItem.ToString(), out AcademicDegree degree))
                 {
@@ -102,7 +103,6 @@ namespace ScientistManagementSystem_C_
                     return;
                 }
 
-                // Предмети
                 List<string> subjects = txtSubjects.Text.Split(',')
                     .Select(s => s.Trim())
                     .Where(s => !string.IsNullOrEmpty(s))
@@ -114,7 +114,6 @@ namespace ScientistManagementSystem_C_
                     return;
                 }
 
-                // Групи
                 List<string> groups = txtGroups.Text.Split(',')
                     .Select(s => s.Trim())
                     .Where(s => !string.IsNullOrEmpty(s))
@@ -126,7 +125,6 @@ namespace ScientistManagementSystem_C_
                     return;
                 }
 
-                // Створюємо об'єкт
                 EditedTeacher = new ScientificTeacher(
                     lastName, firstName, middleName,
                     articles.ToArray(), reports, patents, degree,
@@ -141,12 +139,6 @@ namespace ScientistManagementSystem_C_
                 MessageBox.Show("Помилка збереження: " + ex.Message);
             }
         }
-
-        private void editStaffForm_Load(object sender, EventArgs e)
-        {
-            FormHelper.contentCmbDegree(cmbDegree);
-        }
-
 
         private void btnGoBack_Click(object sender, EventArgs e)
         {

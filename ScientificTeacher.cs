@@ -17,15 +17,12 @@ namespace ScientistManagementSystem_C_
 
         public ScientificTeacher()
         {
-            // Ініціалізуємо порожні поля, щоб уникнути null-помилок
             TeacherData = new Teacher();
             LastName = string.Empty;
             FirstName = string.Empty;
             MiddleName = string.Empty;
         }
 
-
-        // Constructor
         public ScientificTeacher(string lastName, string firstName, string middleName,
             Article[] publications, int reports, int patents, AcademicDegree degree,
             List<string> subjects, int hours, List<string> groups, int experienceYears)
@@ -46,12 +43,13 @@ namespace ScientistManagementSystem_C_
             FirstName = other.FirstName;
             MiddleName = other.MiddleName;
         }
+        ~ScientificTeacher() { }
+
 
         public override string ToString()
         {
             return $"{LastName} {FirstName} {MiddleName}\n{base.ToString()}\n{TeacherData.ToString()}";
         }
-
 
         public static ScientificTeacher Parse(string[] lines)
         {

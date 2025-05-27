@@ -16,7 +16,6 @@ namespace ScientistManagementSystem_C_
 
         public Scientist() { }
 
-        // Constructor
         public Scientist(Article[] publications, int conferenceReports, int patents, AcademicDegree degree)
         {
             Publications = publications;
@@ -25,7 +24,6 @@ namespace ScientistManagementSystem_C_
             Degree = degree;
         }
 
-        // Copy constructor
         public Scientist(Scientist other)
         {
             Publications = other.Publications.Select(a => new Article(a)).ToArray();
@@ -34,13 +32,8 @@ namespace ScientistManagementSystem_C_
             Degree = other.Degree;
         }
 
-        // Destructor
-        ~Scientist()
-        {
-            // Clean-up if needed (not commonly used in .NET)
-        }
+        ~Scientist() { }
 
-        // Access methods
         public void SetDegree(AcademicDegree degree) => Degree = degree;
         public AcademicDegree GetDegree() => Degree;
 
@@ -53,9 +46,7 @@ namespace ScientistManagementSystem_C_
         public void SetPatents(int count) => Patents = count;
         public int GetPatents() => Patents;
 
-
-
-
+        // метод для зміни значень полів
         public void SetAll(Article[] publications, int reports, int patents, AcademicDegree degree)
         {
             Publications = publications;
@@ -64,7 +55,7 @@ namespace ScientistManagementSystem_C_
             Degree = degree;
         }
 
-        // Імітація присвоєння
+        //перевантаження операції присвоєння
         public void CopyFrom(Scientist other)
         {
             Publications = other.Publications.Select(a => new Article(a)).ToArray();
@@ -73,7 +64,7 @@ namespace ScientistManagementSystem_C_
             Degree = other.Degree;
         }
 
-        // Імітація "переміщення"
+        //імітація переміщення вручну
         public static Scientist Move(ref Scientist other)
         {
             Scientist moved = new Scientist(other.Publications, other.ConferenceReports, other.Patents, other.Degree);
@@ -84,21 +75,10 @@ namespace ScientistManagementSystem_C_
             return moved;
         }
 
-        // Вивід
         public override string ToString()
         {
             return $"Degree: {Degree}, Reports: {ConferenceReports}, Patents: {Patents}, Publications: {Publications.Length}";
         }
-
-        // Зчитування з рядка
-        public static Scientist Parse(string data)
-        {
-            // TODO: реалізація при потребі
-            throw new NotImplementedException();
-        }
-
-
-
 
         public virtual string Display()
         {

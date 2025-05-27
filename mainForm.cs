@@ -293,5 +293,58 @@ namespace ScientistManagementSystem_C_
             // 🔽 Налаштування стилю
             FormHelper.ApplyDataGridStyle(dataGridView);
         }
+
+        private void btnTestOperations_Click(object sender, EventArgs e)
+        {
+            // ➤ Тест Scientist
+            Scientist originalSci = new Scientist(
+                new Article[] { new Article("TestAuthor", "TestJournal", "TestTitle", 2021) },
+                5, 2, AcademicDegree.PhD);
+
+            Scientist copiedSci = new Scientist();
+            copiedSci.CopyFrom(originalSci);
+
+            Scientist movedSci = Scientist.Move(ref originalSci);
+
+            MessageBox.Show("Scientist COPY:\n" + copiedSci.ToString(), "Scientist CopyFrom");
+            MessageBox.Show("Scientist MOVE:\n" + movedSci.ToString(), "Scientist Move");
+
+            // ➤ Тест Teacher
+            Teacher originalTeacher = new Teacher(
+                new List<string> { "Math", "Physics" },
+                500,
+                new List<string> { "Group1", "Group2" },
+                10);
+
+            Teacher copiedTeacher = new Teacher();
+            copiedTeacher.CopyFrom(originalTeacher);
+
+            Teacher movedTeacher = Teacher.Move(ref originalTeacher);
+
+            MessageBox.Show("Teacher COPY:\n" + copiedTeacher.ToString(), "Teacher CopyFrom");
+            MessageBox.Show("Teacher MOVE:\n" + movedTeacher.ToString(), "Teacher Move");
+
+            // ➤ Тест ScientificTeacher
+            ScientificTeacher originalST = new ScientificTeacher(
+                "Ivanov", "Petro", "Mykolaiovych",
+                new Article[] { new Article("Ivanov", "Journal", "Title", 2022) },
+                3, 1, AcademicDegree.DoctorTechnical,
+                new List<string> { "CS", "AI" },
+                700,
+                new List<string> { "GroupA" },
+                15);
+
+            ScientificTeacher copiedST = new ScientificTeacher(originalST);
+            copiedST.SetPersonalData("Copied", "Person", "Example");
+
+            MessageBox.Show("ScientificTeacher COPY:\n" + copiedST.ToString(), "ScientificTeacher CopyFrom");
+
+            // SetAll demo (на основі Scientist)
+            copiedST.SetAll(
+                new Article[] { new Article("New", "NewJournal", "NewTitle", 2023) },
+                10, 5, AcademicDegree.PhDM);
+
+            MessageBox.Show("ScientificTeacher after SetAll:\n" + copiedST.ToString(), "ScientificTeacher SetAll");
+        }
     }
 }

@@ -8,10 +8,10 @@ namespace ScientistManagementSystem_C_
 {
     public enum AcademicDegree
     {
-        None,
-        PhD,
-        PhDM,
-        CandidateTechnical,
-        DoctorTechnical
+        None,               // відсутня
+        PhD,                // phd
+        PhDM,               // к.т.н.
+        CandidateTechnical, // к.т.н.
+        DoctorTechnical     // д.т.н.
     }
 }

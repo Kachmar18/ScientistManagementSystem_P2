@@ -28,15 +28,5 @@ namespace ScientistManagementSystem_C_
             }
             return true;
         }
-
-        public static bool ValidateComboBoxSelected(ComboBox comboBox, string fieldName) // чи значення вибрано з ComboBox
-        {
-            if (comboBox.SelectedItem == null)
-            {
-                MessageBox.Show($"Будь ласка, оберіть значення для \"{fieldName}\".", "Помилка валідації");
-                return false;
-            }
-            return true;
-        }
     }
 }
