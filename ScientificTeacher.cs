@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ScientistManagementSystem_C_
 {
     [Serializable]
-    public class ScientificTeacher : Scientist
+    public class ScientificTeacher : Scientist, ITeacher
     {
         public Teacher TeacherData { get; set; }
 
@@ -71,6 +71,17 @@ namespace ScientistManagementSystem_C_
                    $"Groups: {string.Join(", ", TeacherData.Groups)}, Experience: {TeacherData.ExperienceYears}";
         }
 
+
+        // Реалізація інтерфейсу ITeacher через delegation
+        public List<string> Subjects { get => TeacherData.Subjects; set => TeacherData.Subjects = value; }
+        public int AnnualHours { get => TeacherData.AnnualHours; set => TeacherData.AnnualHours = value; }
+        public List<string> Groups { get => TeacherData.Groups; set => TeacherData.Groups = value; }
+        public int ExperienceYears { get => TeacherData.ExperienceYears; set => TeacherData.ExperienceYears = value; }
+
+        public string GetTeacherInfo()
+        {
+            return TeacherData.ToString();
+        }
 
     }
 }

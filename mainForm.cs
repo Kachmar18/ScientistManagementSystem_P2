@@ -243,8 +243,8 @@ namespace ScientistManagementSystem_C_
                 12
             );
 
-            MessageBox.Show(baseScientist.Display(), "Виклик базового об'єкта");
-            MessageBox.Show(derivedScientist.Display(), "Виклик похідного об'єкту через базове посилання");
+            //MessageBox.Show(baseScientist.Display(), "Виклик базового об'єкта");
+            //MessageBox.Show(derivedScientist.Display(), "Виклик похідного об'єкту через базове посилання");
         }
 
         private void btnCleanDataGried_Click(object sender, EventArgs e)

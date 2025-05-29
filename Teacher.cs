@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ScientistManagementSystem_C_
 {
     [Serializable]
-    public class Teacher
+    public class Teacher : ITeacher
     {
         public List<string> Subjects { get; set; }
         public int AnnualHours { get; set; }
