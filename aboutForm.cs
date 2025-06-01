@@ -23,7 +23,7 @@ namespace ScientistManagementSystem_C_
         {
             System.Diagnostics.Process.Start(new ProcessStartInfo
             {
-                FileName = "https://docs.google.com/document/d/1o1IS7ZaBuRL_Kcwfkym8TMg1uuCOeBQm/edit?usp=drive_link&ouid=113111089409960470576&rtpof=true&sd=true",
+                FileName = "https://docs.google.com/document/d/1o1IS7ZaBuRL_Kcwfkym8TMg1uuCOeBQm/edit?usp=sharing&ouid=113111089409960470576&rtpof=true&sd=true",
                 UseShellExecute = true
             });
         }
@@ -37,7 +37,7 @@ namespace ScientistManagementSystem_C_
         {
             System.Diagnostics.Process.Start(new ProcessStartInfo
             {
-                FileName = "https://drive.google.com/drive/folders/166VppwrMd5JoxZzhNVuo4EHBJLHOGiVf?usp=drive_link",
+                FileName = "https://drive.google.com/file/d/1XFry9FwrKT_tup3SIPKkwVIPIueyHRFA/view?usp=sharing",
                 UseShellExecute = true
             });
         }

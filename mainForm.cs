@@ -220,7 +220,6 @@ namespace ScientistManagementSystem_C_
 
         private void btnTestPolymorphism_Click(object sender, EventArgs e)
         {
-            // Scientist (базовий)
             Scientist baseScientist = new Scientist(
                 new Article[]
                 {
@@ -229,8 +228,9 @@ namespace ScientistManagementSystem_C_
                 3, 1, AcademicDegree.PhD
             );
 
-            // ScientificTeacher (похідний, але вказівник на базовий)
-            Scientist derivedScientist = new ScientificTeacher(
+            ShowInfo(baseScientist); // викликається Scientist.Display()
+
+            baseScientist = new ScientificTeacher(
                 "Ivanov", "Oleh", "Petrovych",
                 new Article[]
                 {
@@ -243,9 +243,26 @@ namespace ScientistManagementSystem_C_
                 12
             );
 
-            //MessageBox.Show(baseScientist.Display(), "Виклик базового об'єкта");
-            //MessageBox.Show(derivedScientist.Display(), "Виклик похідного об'єкту через базове посилання");
+            ShowInfo(baseScientist); // викликається Scientist.Display()
+
+
+            //Scientist refScientist;             // Посилання на базовий клас
+
+
+            //refScientist = baseScientist/ Вказуємо на базовий об’єкт
+            //ShowInfo(refScientist); // Викликає Scientist.Display() 
+
+            
+            //refScientist = derivedScientist; // Вказуємо на похідний об’єкт
+            //ShowInfo(refScientist); // Викликає ScientificTeacher.Display()
         }
+
+        private void ShowInfo(Scientist s)
+        {
+            // Це пізнє зв’язування: компілятор не знає заздалегідь, який саме Display() викликати
+            MessageBox.Show(s.Display(), $"Виклик через посилання (тип об’єкта: {s.GetType().Name})");
+        }
+
 
         private void btnCleanDataGried_Click(object sender, EventArgs e)
         {
