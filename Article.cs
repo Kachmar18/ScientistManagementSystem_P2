@@ -30,13 +30,13 @@ namespace ScientistManagementSystem_C_
             Year = other.Year;
         }
 
-        // Перевантажений ToString() → для виведення
+        public Article() { }
+
         public override string ToString()
         {
             return $"{Authors};{JournalName};{Title};{Year}";
         }
 
-        // Статичний Parse() → для створення з рядка
         public static Article Parse(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -51,7 +51,5 @@ namespace ScientistManagementSystem_C_
 
             return new Article(parts[0].Trim(), parts[1].Trim(), parts[2].Trim(), year);
         }
-
-        public Article() { }
     }
 }
