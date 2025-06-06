@@ -51,10 +51,9 @@
 - Windows 10+
 - Visual Studio 2022 (для розробки або перегляду коду)
 
-## Пов’язані документи
-
-UML-діаграма додана в [Додатку 2](https://drive.google.com/file/d/1dFEwmGiKhToCMxhO6o8F1pwcubKhzVdt/view?usp=drive_link)
-Вихідний код записаний в [Додатку 3-27](Вихідний код записаний в [Додатку 3](./src/main.cpp))
+## Додатково
+- UML-діаграма додана в [Додатку 1](https://drive.google.com/file/d/1dFEwmGiKhToCMxhO6o8F1pwcubKhzVdt/view?usp=sharing)
+- Вихідний код записаний в [Додатки 14-27](https://drive.google.com/file/d/1dFEwmGiKhToCMxhO6o8F1pwcubKhzVdt/view?usp=sharing)
 ---
 
 Розроблено в рамках курсової роботи [Технічне завдання](https://docs.google.com/document/d/1jyeA8Fzg7uDy3Ude4M6PUQb08Sw1dalJ/edit?usp=drive_link&ouid=113111089409960470576&rtpof=true&sd=true)
